@@ -1,0 +1,16 @@
+# Request
+
+# Use `{}` as goal because parameterless
+#
+---
+
+# Result
+
+bool success
+string message
+
+---
+
+# Feedback
+
+float32 percent_complete

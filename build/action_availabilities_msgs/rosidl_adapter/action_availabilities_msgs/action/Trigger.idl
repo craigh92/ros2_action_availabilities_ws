@@ -1,0 +1,26 @@
+// generated from rosidl_adapter/resource/action.idl.em
+// with input from action_availabilities_msgs/action/Trigger.action
+// generated code does not contain a copyright notice
+
+
+module action_availabilities_msgs {
+  module action {
+    @verbatim (language="comment", text=
+      " Request")
+    struct Trigger_Goal {
+      uint8 structure_needs_at_least_one_member;
+    };
+    struct Trigger_Result {
+      @verbatim (language="comment", text=
+        " Result")
+      boolean success;
+
+      string message;
+    };
+    struct Trigger_Feedback {
+      @verbatim (language="comment", text=
+        " Feedback")
+      float percent_complete;
+    };
+  };
+};

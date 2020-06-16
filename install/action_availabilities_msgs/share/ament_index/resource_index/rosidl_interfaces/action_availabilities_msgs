@@ -1,0 +1,6 @@
+action/Trigger.action
+action/Trigger.idl
+msg/ActionAvailability.idl
+msg/ActionAvailability.msg
+msg/AvailabilityCondition.idl
+msg/AvailabilityCondition.msg

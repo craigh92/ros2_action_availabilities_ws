@@ -1,0 +1,23 @@
+[2.566s] running egg_info
+[2.568s] writing /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/PKG-INFO
+[2.569s] writing dependency_links to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/dependency_links.txt
+[2.569s] writing entry points to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/entry_points.txt
+[2.570s] writing requirements to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/requires.txt
+[2.571s] writing top-level names to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/top_level.txt
+[2.640s] reading manifest file '/home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/SOURCES.txt'
+[2.641s] writing manifest file '/home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/SOURCES.txt'
+[2.642s] running build
+[2.643s] running build_py
+[2.643s] copying action_availabilities/hello_action_node.py -> /home/craig/rosactavl_ws/build/action_availabilities/build/lib/action_availabilities
+[2.643s] running install
+[2.647s] running install_lib
+[2.649s] copying /home/craig/rosactavl_ws/build/action_availabilities/build/lib/action_availabilities/hello_action_node.py -> /home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages/action_availabilities
+[2.654s] byte-compiling /home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages/action_availabilities/hello_action_node.py to hello_action_node.cpython-38.pyc
+[2.657s] running install_data
+[2.658s] running install_egg_info
+[2.665s] removing '/home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages/action_availabilities-0.0.0-py3.8.egg-info' (and everything under it)
+[2.666s] Copying /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info to /home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages/action_availabilities-0.0.0-py3.8.egg-info
+[2.666s] running install_scripts
+[2.718s] Installing cli_tool script to /home/craig/rosactavl_ws/install/action_availabilities/lib/action_availabilities
+[2.718s] Installing hello_action_node script to /home/craig/rosactavl_ws/install/action_availabilities/lib/action_availabilities
+[2.719s] writing list of installed files to '/home/craig/rosactavl_ws/build/action_availabilities/install.log'

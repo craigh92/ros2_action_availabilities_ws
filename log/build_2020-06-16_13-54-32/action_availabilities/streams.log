@@ -1,0 +1,22 @@
+[1.166s] Invoking command in '/home/craig/rosactavl_ws/src/action_availabilities': PYTHONPATH=/home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base /home/craig/rosactavl_ws/build/action_availabilities build --build-base /home/craig/rosactavl_ws/build/action_availabilities/build install --prefix /home/craig/rosactavl_ws/install/action_availabilities --record /home/craig/rosactavl_ws/build/action_availabilities/install.log --single-version-externally-managed
+[2.473s] running egg_info
+[2.474s] writing /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/PKG-INFO
+[2.474s] writing dependency_links to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/dependency_links.txt
+[2.475s] writing entry points to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/entry_points.txt
+[2.475s] writing requirements to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/requires.txt
+[2.475s] writing top-level names to /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/top_level.txt
+[2.539s] reading manifest file '/home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/SOURCES.txt'
+[2.541s] writing manifest file '/home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info/SOURCES.txt'
+[2.541s] running build
+[2.541s] running build_py
+[2.542s] running install
+[2.545s] running install_lib
+[2.550s] running install_data
+[2.551s] running install_egg_info
+[2.556s] removing '/home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages/action_availabilities-0.0.0-py3.8.egg-info' (and everything under it)
+[2.556s] Copying /home/craig/rosactavl_ws/build/action_availabilities/action_availabilities.egg-info to /home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages/action_availabilities-0.0.0-py3.8.egg-info
+[2.558s] running install_scripts
+[2.600s] Installing cli_tool script to /home/craig/rosactavl_ws/install/action_availabilities/lib/action_availabilities
+[2.600s] Installing hello_action_node script to /home/craig/rosactavl_ws/install/action_availabilities/lib/action_availabilities
+[2.600s] writing list of installed files to '/home/craig/rosactavl_ws/build/action_availabilities/install.log'
+[2.633s] Invoked command in '/home/craig/rosactavl_ws/src/action_availabilities' returned '0': PYTHONPATH=/home/craig/rosactavl_ws/install/action_availabilities/lib/python3.8/site-packages:${PYTHONPATH} /usr/bin/python3 setup.py egg_info --egg-base /home/craig/rosactavl_ws/build/action_availabilities build --build-base /home/craig/rosactavl_ws/build/action_availabilities/build install --prefix /home/craig/rosactavl_ws/install/action_availabilities --record /home/craig/rosactavl_ws/build/action_availabilities/install.log --single-version-externally-managed

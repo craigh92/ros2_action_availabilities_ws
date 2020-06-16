@@ -1,0 +1,18 @@
+file(REMOVE_RECURSE
+  "CMakeFiles/action_availabilities_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/action/detail/dds_fastrtps/trigger__type_support.cpp.o"
+  "CMakeFiles/action_availabilities_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/msg/detail/dds_fastrtps/action_availability__type_support.cpp.o"
+  "CMakeFiles/action_availabilities_msgs__rosidl_typesupport_fastrtps_cpp.dir/rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/msg/detail/dds_fastrtps/availability_condition__type_support.cpp.o"
+  "libaction_availabilities_msgs__rosidl_typesupport_fastrtps_cpp.pdb"
+  "libaction_availabilities_msgs__rosidl_typesupport_fastrtps_cpp.so"
+  "rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/action/detail/dds_fastrtps/trigger__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/action/detail/trigger__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/msg/detail/action_availability__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/msg/detail/availability_condition__rosidl_typesupport_fastrtps_cpp.hpp"
+  "rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/msg/detail/dds_fastrtps/action_availability__type_support.cpp"
+  "rosidl_typesupport_fastrtps_cpp/action_availabilities_msgs/msg/detail/dds_fastrtps/availability_condition__type_support.cpp"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang CXX)
+  include(CMakeFiles/action_availabilities_msgs__rosidl_typesupport_fastrtps_cpp.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()
