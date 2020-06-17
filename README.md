@@ -19,7 +19,7 @@ This creates a topic `last_message_was_hello` that publishes messages whenever a
  
 In another terminal all echo messages on the `last_message_was_hello` topic:
 ```
-ros2 topic echo last_message_was_hello action_availabilities/msgs/AvailabilityCondition --qos-durability transient_local
+ros2 topic echo last_message_was_hello action_availabilities_msgs/msg/AvailabilityCondition --qos-durability transient_local
 ```
 
 Notice how the last message appears, even though it was publsihed before the topic echo node started. This is because messages have transient local durability. The Condition will have value UNKNOWN, because a `chatter` message hasn't been published yet, so it cannot test for equality.

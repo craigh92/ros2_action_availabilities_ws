@@ -23,12 +23,12 @@ class AvailabilityConditionEnum(IntEnum):
 class ConditionPublisher:
     def __init__(self, node : Node, condition_name : str):
 
-        latching_qos = QoSProfile(depth=1,
+        latching_qos = QoSProfile(depth=1, history=1,
             durability=QoSDurabilityPolicy.RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL)
 
         self.__node = node
         self.__pub = node.create_publisher(AvailabilityCondition, condition_name, latching_qos)
-        self.publish(AvailabilityConditionEnum.UNKNOWN)
+        self.publish(AvailabilityConditionEnum.UNKNOWN, "No message has been received")
 
     def publish(self, condition : AvailabilityConditionEnum, message : str=""):
         """
@@ -53,9 +53,9 @@ class ConditionPublisher:
             if val is True:
                 self.publish(AvailabilityConditionEnum.ACTIVE)
             else:
-                message = topic_name + " is not equal to " + str(expected_values)
+                message = topic_name + " value is not equal to " + str(expected_values) + " (actual value: " + str(actual_msg) + ")"
                 self.publish(AvailabilityConditionEnum.INACTIVE, message)
-            future.set(val)
+            future.set_result(val)
 
         MessageEqualityTester(self.__node, topic_name, topic_type, expected_values,equality_check_cb)
         
@@ -145,12 +145,13 @@ def main():
         "\" with publisher for \"" + args.name + "\" and subcription for \"" +
         topic + "\"")
 
-    rclpy.spin_until_future_complete(node, fut, timeout_sec=args.timeout)
+    #rclpy.spin_until_future_complete(node, fut, timeout_sec=args.timeout)
+    rclpy.spin(node)
 
-    if not fut.done():
-        node.get_logger().error(
-            "Timeout after " + str(args.timeout) + 
-            " seccond: No message on \"" + topic + "\" topic" )
+    # if not fut.done():
+    #     node.get_logger().error(
+    #         "Timeout after " + str(args.timeout) + 
+    #         " seccond: No message on \"" + topic + "\" topic" )
 
     node.destroy_node()
     rclpy.shutdown()
