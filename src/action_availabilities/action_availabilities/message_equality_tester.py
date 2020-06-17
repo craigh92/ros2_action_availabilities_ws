@@ -10,6 +10,8 @@ import os
 import argparse
 import yaml
 
+#TODO open a new PR in ros2/roscli and add this as a new Verb: ros2 topic expect <args>
+
 def default_callback(val : bool, actual_msg : Dict, expected_values : Dict):
     print("Equality Tested: " + str(val))
     if val is False:

@@ -25,15 +25,6 @@ class ConditionPublisher:
         msg.message = message
         self.__pub.publish(msg)
 
-class ConditionPublishers:
-    self.__pubs = {}
-    def __init__(self, node : Node, condition_names : List[str]):
-        for condition_name in condition_names:
-            self.__pubs[condition_name] = ConditionPublisher(self, condition_name)
-
-    def publish(self, condition_name : str, condition : AvailabilityConditionEnum, message : str=""):
-        self.__pubs[condition_name].publish(condition, message)
-
 
 class ConditionPublisherNode(Node):
     def __init__(self, name : str):
