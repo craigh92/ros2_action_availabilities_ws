@@ -33,7 +33,7 @@ Notice how a new message has appeard in the echo node. The `last_message_was_hel
 
 Close this terminal and type:
 ```
-ros2 topic pub chatter std_msgs/msg/String {data: hello}
+ros2 topic pub chatter std_msgs/msg/String "{data: hello}"
 ```
 The `last_message_was_hello` topic now publishes the Condition ACTIVE, because the last message was hello.
 
