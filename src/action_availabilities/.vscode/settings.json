@@ -3,10 +3,7 @@
     "/home/craig/ros2_foxy/install/rclpy/lib/python3.8/site-packages",
     "/home/craig/ros2_foxy/install/std_msgs/lib/python3.8/site-packages/",
     "/home/craig/ros2_foxy/install/std_srvs/lib/python3.8/site-packages/",
-
     "/home/craig/rosactavl_ws/install/action_availabilities_msgs/lib/python3.8/site-packages/",
-
     "/home/craig/ros2_foxy/build/rosidl_runtime_py/"
-
-],
+    ]
 }
