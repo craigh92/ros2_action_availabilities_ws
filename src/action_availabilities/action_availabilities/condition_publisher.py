@@ -137,7 +137,7 @@ def main():
 
     rclpy.init()
 
-    node = ConditionPublisherNode('test_condition')
+    node = ConditionPublisherNode(args.name)
     fut = node.add_single_equality_check(topic, msgtype, expected_values_dict)
     rclpy.spin_until_future_complete(node, fut, timeout_sec=args.timeout)
 
