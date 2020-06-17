@@ -35,6 +35,7 @@ class ConditionPublisher:
         Publish a one off condition message. This is called by the prediacte check subscriptions, but can
         also be called manually if is required.
         """
+        self.__node.get_logger().info("Publishing " + str(condition))
         msg = AvailabilityCondition()
         msg.condition = int(condition)
         msg.message = message
@@ -139,6 +140,11 @@ def main():
 
     node = ConditionPublisherNode(args.name)
     fut = node.add_single_equality_check(topic, msgtype, expected_values_dict)
+
+    node.get_logger().info("Started node \"condition_publisher_" + str(os.getpid()) +
+        "\" with publisher for \"" + args.name + "\" and subcription for \"" +
+        topic + "\"")
+
     rclpy.spin_until_future_complete(node, fut, timeout_sec=args.timeout)
 
     if not fut.done():
