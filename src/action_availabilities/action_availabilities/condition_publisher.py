@@ -27,7 +27,7 @@ class ConditionPublisher:
             durability=QoSDurabilityPolicy.RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL)
 
         self.__node = node
-        self.__pub = node.create_publisher(AvailabilityCondition, condition_name, latching_qos)
+        self.__pub = node.create_publisher(AvailabilityCondition, condition_name, qos_profile=latching_qos)
         self.publish(AvailabilityConditionEnum.UNKNOWN, "No message has been received")
 
     def publish(self, condition : AvailabilityConditionEnum, message : str=""):

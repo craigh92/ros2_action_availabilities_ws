@@ -26,7 +26,7 @@ Notice how the last message appears, even though it was publsihed before the top
 
 In another terminal type:
 ```
-ros2 topic pub chatter std_msgs/msg/String {data: foo}
+ros2 topic pub chatter std_msgs/msg/String "{data: foo}"
 ```
 
 Notice how a new message has appeard in the echo node. The `last_message_was_hello` topic publishes the Condition INACTIVE, because the last message was not hello.
