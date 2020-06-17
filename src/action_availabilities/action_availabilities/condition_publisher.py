@@ -112,20 +112,19 @@ def main():
         help='Publish condition as ACTIVE if the last message on all given topics is equal to the associated value, otherwise \
         it will be INACTIVE if not equal, or UNKNOWN if no message is available on the topic.\
         YAML format, \"{ topics: [{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}, [{...}]}\"\
-        (e.g \""{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"\" )')
+        (e.g \""{ topics: [ {topic: chatter, type: std_msgs/msg/String, expected_value: {data: hello} } , {topic: chatter2, type: std_msgs/msg/String, expected_value: {data: hello2}} ]}"\" )')
 
     group.add_argument('--multi_topic_anyof_equality_predicate',
         help='Publish condition as ACTIVE if the last message on any given topics is equal to the associated value, otherwise \
         it will be INACTIVE if not equal, or UNKNOWN if no message is available on the topic.\
         YAML format, \"{ topics: [{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}, [{...}]}\"\
-        (e.g \""{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"\" )')
+        (e.g \""{ topics: [ {topic: chatter, type: std_msgs/msg/String, expected_value: {data: hello} } , {topic: chatter2, type: std_msgs/msg/String, expected_value: {data: hello2}} ]}"\" )')
 
     group.add_argument('--multi_topic_exclusiveany_equality_predicate',
         help='Publish condition as ACTIVE if the last message on one and only one given topics is equal to the associated value, otherwise \
         it will be INACTIVE if not equal, or UNKNOWN if no message is available on the topic.\
         YAML format, \"{ topics: [{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}, [{...}]}\"\
-        (e.g \""{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"\" )')
-
+        (e.g \""{ topics: [ {topic: chatter, type: std_msgs/msg/String, expected_value: {data: hello} } , {topic: chatter2, type: std_msgs/msg/String, expected_value: {data: hello2}} ]}"\" )')
 
 
     args = parser.parse_args()
@@ -200,4 +199,27 @@ def multi_topic_allof(args):
         print('The passed value needs to be a dictionary in YAML format')
         exit(1)
 
-    print(str(values_dictionary))
+    try:
+        topics_array = values_dictionary['topics']
+    except:
+        print("\"topics\" key required in YAML arguemnt. Use -h for help")
+        exit(1)
+
+    for values_dictionary in topics_array:
+        try:
+            topic = values_dictionary['topic']
+        except:
+            print("\"topic\" key required in YAML arguemnt. Use -h for help")
+            exit(1)
+
+        try:
+            msgtype = values_dictionary['type']
+        except:
+            print("\"type\" key required in YAML arguemnt. Use -h for help")
+            exit(1)
+            
+        try:
+            expected_values_dict = values_dictionary['expected_value']
+        except:
+            print("\"expected_value\" key required in YAML arguemnt. Use -h for help")
+            exit(1)
