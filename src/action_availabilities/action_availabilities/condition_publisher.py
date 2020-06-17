@@ -193,7 +193,6 @@ def single_topic(args):
     rclpy.shutdown()
 
 def multi_topic_allof(args):
-    print(args.multi_topic_allof_equality_predicate)
     values_dictionary = yaml.safe_load(args.multi_topic_allof_equality_predicate)
     if not isinstance(values_dictionary, dict):
         print('The passed value needs to be a dictionary in YAML format')
@@ -208,18 +207,25 @@ def multi_topic_allof(args):
     for values_dictionary in topics_array:
         try:
             topic = values_dictionary['topic']
+            print("Subscribing to \"" + topic + "\"")
         except:
             print("\"topic\" key required in YAML arguemnt. Use -h for help")
             exit(1)
 
         try:
             msgtype = values_dictionary['type']
+            print("Of type \"" + msgtype + "\"")
         except:
             print("\"type\" key required in YAML arguemnt. Use -h for help")
             exit(1)
             
         try:
             expected_values_dict = values_dictionary['expected_value']
+            print("And expecting the values \"" + str(expected_values_dict) + "\"\n")
+
         except:
             print("\"expected_value\" key required in YAML arguemnt. Use -h for help")
             exit(1)
+    
+    print("Checking all of them equal the expected value, \
+        and publishing the result to topic \"" + args.name + "\"")
