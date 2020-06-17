@@ -3,7 +3,7 @@ from rclpy.node import Node
 import os
 import typing
 from typing import List, Optional, Dict
-from action_availabilities_msgs.msg import AvailabilityCondition
+from action_availabilities_msgs.msg import Condition
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy
 from enum import IntEnum
 from action_availabilities.message_equality_tester import MessageEqualityTester
@@ -13,7 +13,7 @@ import argparse
 import yaml
 from rclpy.task import Future
 
-class AvailabilityConditionEnum(IntEnum):
+class ConditionEnum(IntEnum):
     ACTIVE=0
     INACTIVE=1
     SHELVED=2
@@ -27,16 +27,16 @@ class ConditionPublisher:
             durability=QoSDurabilityPolicy.RMW_QOS_POLICY_DURABILITY_TRANSIENT_LOCAL)
 
         self.__node = node
-        self.__pub = node.create_publisher(AvailabilityCondition, condition_name, qos_profile=latching_qos)
-        self.publish(AvailabilityConditionEnum.UNKNOWN, "No message has been received")
+        self.__pub = node.create_publisher(Condition, condition_name, qos_profile=latching_qos)
+        self.publish(ConditionEnum.UNKNOWN, "No message has been received")
 
-    def publish(self, condition : AvailabilityConditionEnum, message : str=""):
+    def publish(self, condition : ConditionEnum, message : str=""):
         """
         Publish a one off condition message. This is called by the prediacte check subscriptions, but can
         also be called manually if is required.
         """
         self.__node.get_logger().info("Publishing " + str(condition))
-        msg = AvailabilityCondition()
+        msg = Condition()
         msg.condition = int(condition)
         msg.message = message
         self.__pub.publish(msg)
@@ -51,10 +51,10 @@ class ConditionPublisher:
         
         def equality_check_cb(val : bool, actual_msg : Dict, expected_values : Dict):
             if val is True:
-                self.publish(AvailabilityConditionEnum.ACTIVE)
+                self.publish(ConditionEnum.ACTIVE)
             else:
                 message = topic_name + " value is not equal to " + str(expected_values) + " (actual value: " + str(actual_msg) + ")"
-                self.publish(AvailabilityConditionEnum.INACTIVE, message)
+                self.publish(ConditionEnum.INACTIVE, message)
             future.set_result(val)
 
         MessageEqualityTester(self.__node, topic_name, topic_type, expected_values,equality_check_cb)
@@ -75,7 +75,7 @@ class ConditionPublisherNode(Node):
         super().__init__('condition_publisher_' + str(os.getpid()))
         self.__condpub = ConditionPublisher(self, name)
 
-    def publish(self, condition : AvailabilityConditionEnum, message : str=""):
+    def publish(self, condition : ConditionEnum, message : str=""):
         self.__condpub.publish(condition, message)
 
     def add_single_equality_check(self, topic_name : str, topic_type : str, expected_values : Dict) -> Future:
