@@ -1,8 +1,0 @@
-{
-  "package_name": "action_availabilities_msgs",
-  "non_idl_tuples": [
-    "/home/craig/rosactavl_ws/src/action_availabilities_msgs:action/Trigger.action",
-    "/home/craig/rosactavl_ws/src/action_availabilities_msgs:msg/ActionAvailability.msg",
-    "/home/craig/rosactavl_ws/src/action_availabilities_msgs:msg/AvailabilityCondition.msg"
-  ]
-}

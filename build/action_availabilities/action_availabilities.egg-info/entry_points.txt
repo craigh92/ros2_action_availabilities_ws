@@ -1,4 +1,0 @@
-[console_scripts]
-cli_tool = action_availabilities.cli_tool:main
-hello_action_node = action_availabilities.hello_action_node:main
-
