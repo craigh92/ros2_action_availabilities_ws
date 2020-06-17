@@ -37,5 +37,11 @@ ros2 topic pub chatter std_msgs/msg/String "{data: hello}"
 ```
 The `last_message_was_hello` topic now publishes the Condition ACTIVE, because the last message was hello.
 
+#### Multiple topics example:
+
+```
+ros2 run action_availabilities condition_publisher --name test --multi_topic_allof_equality_predicate "{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"
+```
+
 ## Python API:
 TODO

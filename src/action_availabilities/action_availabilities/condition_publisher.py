@@ -108,33 +108,70 @@ def main():
         YAML format, \"{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}\"\
         (e.g \"{topic: chatter, type: std_msgs/msg/String, expected_value: {data: hello}}\" )')
 
+    group.add_argument('--multi_topic_allof_equality_predicate',
+        help='Publish condition as ACTIVE if the last message on all given topics is equal to the associated value, otherwise \
+        it will be INACTIVE if not equal, or UNKNOWN if no message is available on the topic.\
+        YAML format, \"{ topics: [{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}, [{...}]}\"\
+        (e.g \""{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"\" )')
+
+    group.add_argument('--multi_topic_anyof_equality_predicate',
+        help='Publish condition as ACTIVE if the last message on any given topics is equal to the associated value, otherwise \
+        it will be INACTIVE if not equal, or UNKNOWN if no message is available on the topic.\
+        YAML format, \"{ topics: [{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}, [{...}]}\"\
+        (e.g \""{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"\" )')
+
+    group.add_argument('--multi_topic_exclusiveany_equality_predicate',
+        help='Publish condition as ACTIVE if the last message on one and only one given topics is equal to the associated value, otherwise \
+        it will be INACTIVE if not equal, or UNKNOWN if no message is available on the topic.\
+        YAML format, \"{ topics: [{topic: <topic_name>, type: <type>, expected_value: <expected_value_as_yaml>}, [{...}]}\"\
+        (e.g \""{ topics: [ {topic: chatter, expected_value: {data: hello} } , {topic: chatter2, expected_value: {data: hello2}} ]}"\" )')
+
+
+
     args = parser.parse_args()
 
     if len(sys.argv)==1:
         parser.print_help(sys.stdout)
         sys.exit(0)
 
+    if args.value:
+        print("coming soon...")
+
+    if args.single_topic_equality_predicate:
+        single_topic(args)
+
+    if args.multi_topic_allof_equality_predicate:
+        multi_topic_allof(args)
+
+    if args.multi_topic_anyof_equality_predicate:
+        print("coming soon...")
+
+    if args.multi_topic_exclusiveany_equality_predicate:
+        print("coming soon...")
+
+def single_topic(args):
     values_dictionary = yaml.safe_load(args.single_topic_equality_predicate)
     if not isinstance(values_dictionary, dict):
-        return 'The passed value needs to be a dictionary in YAML format'
+        print('The passed value needs to be a dictionary in YAML format')
+        exit(1)
 
     try:
         topic = values_dictionary['topic']
     except:
         print("\"topic\" key required in YAML arguemnt. Use -h for help")
-        return 1
+        exit(1)
 
     try:
         msgtype = values_dictionary['type']
     except:
         print("\"type\" key required in YAML arguemnt. Use -h for help")
-        return 1
+        exit(1)
 
     try:
         expected_values_dict = values_dictionary['expected_value']
     except:
         print("\"expected_value\" key required in YAML arguemnt. Use -h for help")
-        return 1
+        exit(1)
 
     rclpy.init()
 
@@ -155,3 +192,12 @@ def main():
 
     node.destroy_node()
     rclpy.shutdown()
+
+def multi_topic_allof(args):
+    print(args.multi_topic_allof_equality_predicate)
+    values_dictionary = yaml.safe_load(args.multi_topic_allof_equality_predicate)
+    if not isinstance(values_dictionary, dict):
+        print('The passed value needs to be a dictionary in YAML format')
+        exit(1)
+
+    print(str(values_dictionary))
