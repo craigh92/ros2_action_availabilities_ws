@@ -1,0 +1,3 @@
+[submodule "src/third_party/ros2_conditions_ws"]
+	path = src/third_party/ros2_conditions_ws
+	url = https://github.com/craigh92/ros2_conditions_ws.git

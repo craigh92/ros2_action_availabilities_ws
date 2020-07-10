@@ -15,10 +15,14 @@ from rclpy.executors import Executor, MultiThreadedExecutor
 from rclpy.handle import InvalidHandle
 from action_msgs.msg import GoalInfo, GoalStatus
 from action_msgs.msg._goal_status import Metaclass_GoalStatus
+import yaml
+from typing import List, Dict, Union
+from action_availabilities.make_available_when_args import make_available_when_args, MakeAvailableWhenArgs, example_arg
+from argparse import RawTextHelpFormatter
 
 def parse_args(args=None):
     
-    parser = argparse.ArgumentParser(description=
+    parser = argparse.ArgumentParser(formatter_class=RawTextHelpFormatter, description=
         'CLI Tool to make an action server')
 
     parser.add_argument('--name', required=True,
@@ -27,10 +31,13 @@ def parse_args(args=None):
     parser.add_argument('--delay', required=True, type=float,
         help='The time delay between printing each letter')
 
+    parser.add_argument('--make_available_when', type=make_available_when_args,
+        help='The conditions required for this action to be available. YAML format. e.g \"{}\"'.format(example_arg))
+
     return parser.parse_args()
 
 
-class HelloActionServer:
+class HelloAvlActionServer:
     """
     Adds an action server with name <action_name> to the node <node>.
     The action prints the word "hello world!", one letter at a time.
@@ -38,22 +45,11 @@ class HelloActionServer:
 
     def __init__(self, node : Node, action_name : str, delay : float, future : Optional[Future] = None):
 
-        self.__actsrvr = ActionServer(
+        self.__actsrvr = AvlActionServer(
             node,
             Trigger,
             action_name,
-            execute_callback=self.__execute_callback,
-
-            cancel_callback=lambda cancel_request : (
-                print(''),
-                node.get_logger().info("Canceling goal..."),
-                CancelResponse.ACCEPT)[-1],
-            
-            goal_callback=lambda goal_request : (
-                inprog := self.__goal_handle is not None,
-                self.__node.get_logger().info("Rejecting as action allready in progress") if inprog else None,
-                GoalResponse.REJECT if inprog else GoalResponse.ACCEPT
-                )[-1]
+            execute_callback=self.__execute_callback
             )
 
         self.__node = node
@@ -65,8 +61,18 @@ class HelloActionServer:
         if self.__goal_handle is not None:
             self.__goal_handle.abort()
 
-    __goal_handle : Optional[ServerGoalHandle] = None
+    def make_available_when(self, args : MakeAvailableWhenArgs):
+        for cond in args.conditions:
+            if cond.scheme == "allof":
 
+                topics_and_values : List[TopicAndValuesPair] = []
+                for topic_and_value in cond.required_states:
+                    topics_and_values.append(TopicAndValuesPair(topic_and_value.topic_name,
+                        topic_and_value.topic_type, topic_and_value.required_values))
+
+                self.__actsrvr.make_available_if_all_last_messages_equals(cond.name, topics_and_values)
+
+    __goal_handle = None
     def __execute_callback(self, goal_handle : ServerGoalHandle):
 
         self.__goal_handle = goal_handle
@@ -101,6 +107,7 @@ class HelloActionServer:
         self.__node.get_logger().info("Goal completed")
 
         self.__goal_handle = None
+
         return result
     
     def __handle_if_canceled(self, goal_handle : ServerGoalHandle):
@@ -128,38 +135,36 @@ class HelloActionServer:
             return result
         return None
 
-    def __count_status_subscribers(self) -> int:
-        #Could use to find out if client that called is still alive
-        topic_name = self.__action_name + "/_action/status"
-        return self.__node.count_subscribers(topic_name)
-
-class HelloActionServerNode(Node):
+class HelloAvlActionServerNode(Node):
     """
     Wraps a HelloActionServer as a ros node
     """
     def __init__(self, action_name : str, delay : float, future : Optional[Future] = None):
         super().__init__("hello_action_node" + str(os.getpid()))
-        self.actnsrv = HelloActionServer(self, action_name, delay, future)
+        self.actnsrv = HelloAvlActionServer(self, action_name, delay, future)
 
     def abort(self):
         self.actnsrv.abort()
+
+    def make_available_when(self, args : MakeAvailableWhenArgs):
+        self.actnsrv.make_available_when(args)
 
 def main():
 
     args = parse_args()
     rclpy.init()
     exe = MultiThreadedExecutor()
-    future = Future()
-    node = HelloActionServerNode(args.name, args.delay, future)
+    node = HelloAvlActionServerNode(args.name, args.delay)
+
+    if args.make_available_when is not None:
+        node.make_available_when(args.make_available_when)
+
     node.get_logger().info("Node started")
     exe.add_node(node)
 
-    try:        
-        exe.spin_until_future_complete(future, timeout_sec=200)
-        exe.spin_once()
-    except KeyboardInterrupt:
-        node.get_logger().info("KeyboardInterrupt: Aborting all goals")
-        node.abort()
+    exe.spin()
+
+    node.abort()
 
     node.get_logger().info("Node finished")
     

@@ -3,7 +3,13 @@
     "/home/craig/ros2_foxy/install/rclpy/lib/python3.8/site-packages",
     "/home/craig/ros2_foxy/install/std_msgs/lib/python3.8/site-packages/",
     "/home/craig/ros2_foxy/install/std_srvs/lib/python3.8/site-packages/",
+    "/home/craig/ros2_foxy/build/rosidl_runtime_py/",
+    "/home/craig/ros2_foxy/build/examples_rclpy_minimal_publisher",
+    "/home/craig/ros2_foxy/build/ros2action/",
+    "/home/craig/ros2_foxy/install/action_msgs/lib/python3.8/site-packages/",
+    "/home/craig/rosactavl_ws/install/condition_msgs/lib/python3.8/site-packages/",
+    "/home/craig/rosactavl_ws/install/conditions/lib/python3.8/site-packages/",
     "/home/craig/rosactavl_ws/install/action_availabilities_msgs/lib/python3.8/site-packages/",
-    "/home/craig/ros2_foxy/build/rosidl_runtime_py/"
+    "/home/craig/ros2_foxy/install/unique_identifier_msgs/lib/python3.8/site-packages/"
     ]
 }

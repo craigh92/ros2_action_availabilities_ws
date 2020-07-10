@@ -26,7 +26,6 @@ find_package(rosidl_default_generators REQUIRED)
 rosidl_generate_interfaces(${PROJECT_NAME}
 "action/Trigger.action"
 "msg/ActionAvailability.msg"
-"msg/Condition.msg"
 )
 
 if(BUILD_TESTING)

@@ -22,8 +22,7 @@ setup(
         'console_scripts': [
             'cli_tool = action_availabilities.cli_tool:main',
             'hello_action_node = action_availabilities.hello_action_node:main',
-            'message_equality_tester = action_availabilities.message_equality_tester:main',
-            'condition_publisher = action_availabilities.condition_publisher:main'
+            'hello_avlaction_node = action_availabilities.hello_avlaction_node:main'
         ],
     },
 )
